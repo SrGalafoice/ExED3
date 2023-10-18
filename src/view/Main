@@ -1,0 +1,51 @@
+package view;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
+import controller.Hash3;
+
+
+public class MainHash3 {
+    public static void main(String[] args) {
+        Hash3 cont = new Hash3();
+
+        Scanner leia = new Scanner(System.in);
+        HashMap<Integer, List<String>> tabela = new HashMap<Integer, List<String>>();
+        System.out.println("Digite numero de pessoas ");
+        int numeropessoas = leia.nextInt();
+        int controle = numeropessoas;
+
+        Hash3.inserirNome(tabela,numeropessoas);
+
+        int x = 1;
+        while(x > 0 && x < 6) {
+            System.out.println("MENU:");
+            System.out.println("1 - Inserir um novo nome na tabela");
+            System.out.println("2 - Pesquisar um determinado nome na tabela");
+            System.out.println("3 - Remover um dado nome da tabela");
+            System.out.println("4 - Verificar se a tabela está cheia");
+            System.out.println("5 - Imprimir todos os dados da tabela");
+            System.out.println("9 - Cancelar");
+            x = leia.nextInt();
+            switch (x) {
+                case 1:
+                    if (numeropessoas > controle){
+                    cont.inserirNome(tabela, numeropessoas - controle);
+                    controle += 1;
+                    } else System.out.println("Tabela ta cheia! >:(");
+                    break;
+                case 2:
+                    System.out.println(cont.pesquisarNome(tabela)); break;
+                case 3:
+                    cont.remover(tabela); break;
+                case 4:
+                    System.out.println(cont.verificar(tabela,5)); break;
+                case 5:
+                    cont.imprimir(tabela); break;
+                default:
+                    break;
+            }
+        }
+    }
+}
