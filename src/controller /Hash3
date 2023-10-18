@@ -1,0 +1,84 @@
+package controller;
+import java.util.*;
+
+public class Hash3 {
+    Scanner leia = new Scanner(System.in);
+    public static void inserirNome(HashMap<Integer, List<String>> tabela, int tantodeNome) {
+        String nome;
+        Scanner leia = new Scanner(System.in);
+        int i,id;
+        String opcao = "s";
+        while(opcao.equals("s")|opcao.equals("S")){
+        for(i = 1;i <= tantodeNome;i++) {
+            System.out.println("Novo nome:");
+            nome = leia.next();
+            id = QuantidadeLetra(nome);
+            pessoa(tabela, nome, id);
+            System.out.println("Deseja inserir outro nome? S/N");
+            opcao = leia.next();
+        }
+        }
+    }
+
+    public String pesquisarNome(HashMap<Integer, List<String>> tabela) {
+        System.out.println("Nome para pesquisar: ");
+        String nome = leia.next();
+        int id = QuantidadeLetra(nome);
+        List<String> pesquisar;
+        if(tabela.get(id)!= null) {
+            pesquisar=tabela.get(id);
+        }else {
+            return "Nome Invalido (nao existe na tabela)";
+        }
+
+        if(pesquisar.contains(nome)) {
+            return "O nome esta na tabela";
+        }else {
+            return "O nome nao esta na tabela";
+        }
+    }
+
+
+    public String remover(HashMap<Integer, List<String>> tabela) {
+        System.out.println("Nome que deseja remover:");
+        String nome = leia.next();
+        int id = QuantidadeLetra(nome);
+        List<String>listaComNomeRemovido;
+        if(tabela.get(id)!=null) {
+            listaComNomeRemovido=tabela.get(id);
+        }else {
+            return"Nao existe esse nome na lista";
+        }
+
+        if(!listaComNomeRemovido.contains(nome)) {
+            return"Nao existe esse nome na lista";
+        }
+
+        listaComNomeRemovido.remove(nome);
+        if(listaComNomeRemovido.isEmpty()) {
+            tabela.remove(id);
+        }else {
+            tabela.put(id,listaComNomeRemovido);
+        }
+        return "Nome removido!";
+    }
+
+    public String verificar(HashMap<Integer, List<String>> tabela, int tamanhoOriginal) {
+        int tamanhoTabela = tabela.size();
+        if(tamanhoTabela >= tamanhoOriginal) return "A tabela esta cheia!";
+        else return "A tabela nao esta cheia!";
+    }
+
+    public void imprimir(HashMap<Integer, List<String>> tabela) {
+        System.out.println(tabela);
+    }
+    public static int QuantidadeLetra(String str) {
+        str.toCharArray();
+        return str.length();
+    }
+    public static void pessoa(Map<Integer, List<String>> tabela,String nome, int id) {
+        List<String> pessoaList=tabela.getOrDefault(id, new ArrayList<>());
+        pessoaList.add(nome);
+        tabela.put(id,pessoaList);
+    }
+}
